@@ -1,0 +1,63 @@
+<%-include('templates/header') %>
+
+  <!-- <ol> 
+<%# for(let i=0; i < users.length; i++) { %> 
+<%# include('templates/users', {user: users[i]})  %>  
+<%# } %>  
+</ol>  -->
+
+  <div class="container mt-5">
+    <% if (!notAuthorized) { %>
+      <h1 class="mb-4">User Management</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user=> { %>
+            <tr>
+              <td>
+                <%= user.username %>
+              </td>
+              <td>
+                <%= user.user_type %>
+              </td>
+              <td>
+                <a href="/admin/promote/<%= user.username %>" class="btn btn-success btn-sm">Promote</a>
+                <a href="/admin/demote/<%= user.username %>" class="btn btn-warning btn-sm">Demote</a>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="notAuthModal" tabindex="-1" aria-labelledby="notAuthLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-danger text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="notAuthLabel">Access Denied</h5>
+        </div>
+        <div class="modal-body">
+          You are not authorized to access this page.
+        </div>
+        <div class="modal-footer">
+          <a href="/" class="btn btn-light">Go Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <% if (notAuthorized) { %>
+    <script>
+      const modal = new bootstrap.Modal(document.getElementById('notAuthModal'));
+      modal.show();
+    </script>
+    <% } %>
+      <%- include('templates/footer') %>
