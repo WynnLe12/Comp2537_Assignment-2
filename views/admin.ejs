@@ -20,16 +20,7 @@
         <tbody>
           <% users.forEach(user=> { %>
             <tr>
-              <td>
-                <%= user.username %>
-              </td>
-              <td>
-                <%= user.user_type %>
-              </td>
-              <td>
-                <a href="/admin/promote/<%= user.username %>" class="btn btn-success btn-sm">Promote</a>
-                <a href="/admin/demote/<%= user.username %>" class="btn btn-warning btn-sm">Demote</a>
-              </td>
+             <%-include('templates/users', {user}) %> 
             </tr>
             <% }) %>
         </tbody>
